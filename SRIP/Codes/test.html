@@ -1,0 +1,84 @@
+<html>
+    <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script>
+                    var n = 2;
+                    var matrix = [
+                                        ['x',1],
+                                        [1,'x'],
+                                 ];
+                     var check = new Array(n);
+                    for(var i=0;i<n;++i)
+                     check[i]=new Array(n);
+                    for(var i=0;i<n;++i)
+                     for(var j=0;j<n;++j)
+                     check[i][j]=false;
+                     
+                     function changeVal(input,row,col){
+                         console.log(input);
+                    var str=input.value;
+                    iscorr=false;
+                    if(str==matrix[row][col]){
+                        iscorr=true;
+                    }
+                    check[row][col]=iscorr;
+                    var color = '#C0C0C0';
+                    if(str=='')color='#C0C0C0';
+                    else if(iscorr)color='#52D017';
+                    else color = '#F62817';
+                    input.style.backgroundColor=color;
+                    var isDone=true;
+                    for(var i=0;i<n&&isDone;++i)
+                        for(var j=0;j<n&&isDone;++j)
+                            if(check[i][j]==false)
+                                isDone=false;
+                    if(isDone)
+                    {
+                        //Done with matrix, redirect 
+                        alert('Matrix is correct');
+                        writeCookie('mol','ethylene', 3);
+                        window.location='ethylene_final.php';
+                    }
+                }
+                
+                </script>
+    </head>
+    <body>
+        <script>
+            var n = 2;
+            </script>
+        <table class="wrapper"></table>
+        <script>
+            var x = "<tr>";
+            for(var i = 0;i<n;i++){
+                var y = "<tr>";
+                        $(".wrapper").append(y);
+                for(var j = 0;j<n;j++){
+                    var id = n*i+j;
+                    x ="<td style='padding:5px;'>" +
+                        "<input" +
+                     " id = input"+ id +
+                    " onkeyup=changeVal(this,"+i+","+j+");" +
+                     " maxlength='1' />"+
+                     "</td>";
+                    $(".wrapper").append(x);
+                }
+                var z = "</tr>";
+                $(".wrapper").append(z);
+                
+
+            }
+            
+            </script>
+            <script>
+                    var n = 2;
+                    
+                    for(var i=0;i<n;++i){
+                        for(var j=0;j<n;++j){
+                            changeVal(document.getElementById('input'+(n*i+j)),i,j);
+                        }
+                    }
+                    
+                </script>
+    </body>
+</html>
